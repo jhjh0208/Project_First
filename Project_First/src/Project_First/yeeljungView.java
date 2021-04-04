@@ -1,6 +1,7 @@
 package Project_First;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -13,28 +14,36 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class yeeljungView extends JFrame {
-	int				i;
+
 	int				j;
 	Calendar		cal			= Calendar.getInstance();
-	JLabel			jlb			= new JLabel("2021년 " + " 3월");
-//	JLabel			jlb2		= new JLabel();
+	int				year		= 0;
+	int				month		= 0;
+	int				nowMonth	= 0;
+	int				today		= 0;
+
+	JLabel			jlb			= new JLabel();
+	JLabel			jlb2		= null;
 	JPanel			jp_up		= new JPanel(new FlowLayout());
-	JPanel			jp_up2		= new JPanel(new FlowLayout());
+	JPanel			jp_up2		= new JPanel(new GridLayout(1, 7, 3, 3));
+	JPanel			jp_up3		= new JPanel(new BorderLayout());
 	JPanel			jp_down		= new JPanel(new GridLayout(0, 7, 3, 3));
 	JButton			jbtn_in		= new JButton("출근");
 	JButton			jbtn_out	= new JButton("퇴근");
 	JButton			jbtn_left	= new JButton("◀");
 	JButton			jbtn_right	= new JButton("▶");
 	JButton			jbtn_search	= new JButton("검색");
-	JButton[]		jbtn_nalja	= new JButton[35];
-//	String[]		str_yooill	= {"일","월","화","수","목","금","토"};
-	yeeljungEvent	yje			= new yeeljungEvent();
+	JButton[]		jbtn_nalja	= new JButton[42];
+	String[]		str_yooill	= { "일", "월", "화", "수", "목", "금", "토" };
+	yeeljungEvent	yje			= null;
 
 	public yeeljungView() {
+		yje = new yeeljungEvent(this);
 		initDisplay();
 	}
 
 	public void initDisplay() {
+
 		jp_up.add(jbtn_in);
 		jp_up.add(jbtn_out);
 		jp_up.add(jbtn_left);
@@ -42,32 +51,103 @@ public class yeeljungView extends JFrame {
 		jp_up.add(jbtn_right);
 		jp_up.add(jbtn_search);
 
-		for (i = 0; i < 35; i++) {
+		for (int i = 0; i < 42; i++) {
 			jbtn_nalja[i] = new JButton("" + (i + 1));
 			jbtn_nalja[i].addActionListener(yje);
 			jp_down.add(jbtn_nalja[i]);
-
 		}
-		
-//		for (j = 0; j<str_yooill.length;j++) {
-//			jlb2.add(str_yooill[j]);
-//		}
-		
+
+		for (int i = 0; i < str_yooill.length; i++) {
+			jlb2 = new JLabel(str_yooill[i]);
+			jp_up2.add(jlb2);
+			jlb2.setHorizontalAlignment(JLabel.CENTER);
+
+			if (i == 0) {
+				jlb2.setForeground(Color.red);
+			}
+			else if (i == 6) {
+				jlb2.setForeground(Color.blue);
+			}
+		}
+
+		jbtn_left.addActionListener(yje);
+		jbtn_right.addActionListener(yje);
+		jbtn_search.addActionListener(yje);
+		jbtn_in.addActionListener(yje);
+		jbtn_out.addActionListener(yje);
+
 		this.setLayout(new BorderLayout());
-		this.add("North", jp_up);
-//		this.add("South",jp_up2);
+		jp_up3.add("North", jp_up);
+		jp_up3.add("Center", jp_up2);
+		this.add("North", jp_up3);
 		this.add("Center", jp_down);
 		this.setTitle("일정관리");
-		this.setSize(650, 500);
+		this.setSize(550, 400);
+		year = cal.get(Calendar.YEAR);
+		month = cal.get(Calendar.MONTH) + 1;
+		nowMonth = month;
+		today = cal.get(Calendar.DATE);
+		RefreshDate();
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-
 	}
+
+	void RefreshDate() {
+
+		for (int i = 1; i < jbtn_nalja.length; i++) {
+			jbtn_nalja[i].setVisible(true);
+			jbtn_nalja[i].setEnabled(true);
+		}
+		jlb.setText(String.format("%s년  %s월", year, month));
+
+		cal.set(Calendar.YEAR, year); // 입력받은 년도로 세팅
+		cal.set(Calendar.MONTH, month); // 입력받은 월로 세팅
+		cal.set(year, month - 1, 1); // 입력받은 월의 1일로 세팅
+		// month는 0이 1월이므로 -1을 해준다
+
+		int	end			= cal.getActualMaximum(Calendar.DATE);	// 해당 월 마지막 날짜
+		int	dayOfWeek	= cal.get(Calendar.DAY_OF_WEEK);		// 해당 날짜의 요일(1:일요일 … 7:토요일)
+
+		int	v			= 0;
+
+		for (int i = 1; i <= end; i++) {
+
+			if (i == 1) {
+
+				for (int j = 1; j < dayOfWeek; j++) {
+					jbtn_nalja[v].setVisible(false);
+					v++;
+				}
+			}
+
+			if (dayOfWeek % 7 == 1) {
+				jbtn_nalja[(v + i - 1)].setForeground(Color.red);
+			}
+			else if (dayOfWeek % 7 == 0) {
+				jbtn_nalja[(v + i - 1)].setForeground(Color.blue);
+			}
+
+			jbtn_nalja[(v + i - 1)].setText(String.valueOf(i));
+
+			dayOfWeek++;
+		}
+
+		for (int i = 0; i < 42 - (v + end); i++) {
+			jbtn_nalja[v + end + i].setVisible(false);
+		}
+	}
+
+//		if (month == nowMonth) {
+//
+//			for (int i = 1; i < today; i++) {
+//				jbtn_nalja[i].setEnabled(false);
+//			}//
+//		}
+//	}
 
 	public static void main(String[] args) {
 		new yeeljungView();
 
 	}
-
 }
