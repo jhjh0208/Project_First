@@ -16,26 +16,28 @@ import javax.swing.JPanel;
 public class yeeljungView extends JFrame {
 
 	int				j;
-	Calendar		cal			= Calendar.getInstance();
-	int				year		= 0;
-	int				month		= 0;
-	int				nowMonth	= 0;
-	int				today		= 0;
-
-	JLabel			jlb			= new JLabel();
-	JLabel			jlb2		= null;
-	JPanel			jp_up		= new JPanel(new FlowLayout());
-	JPanel			jp_up2		= new JPanel(new GridLayout(1, 7, 3, 3));
-	JPanel			jp_up3		= new JPanel(new BorderLayout());
-	JPanel			jp_down		= new JPanel(new GridLayout(0, 7, 3, 3));
-	JButton			jbtn_in		= new JButton("출근");
-	JButton			jbtn_out	= new JButton("퇴근");
-	JButton			jbtn_left	= new JButton("◀");
-	JButton			jbtn_right	= new JButton("▶");
-	JButton			jbtn_search	= new JButton("검색");
-	JButton[]		jbtn_nalja	= new JButton[42];
-	String[]		str_yooill	= { "일", "월", "화", "수", "목", "금", "토" };
-	yeeljungEvent	yje			= null;
+	Calendar		cal				= Calendar.getInstance();
+	int				year			= 0;
+	int				month			= 0;
+	int				nowMonth		= 0;
+	int				today			= 0;
+	JLabel			jlb				= new JLabel();
+	JLabel			jlb_void		= new JLabel("      ");
+	JLabel			jlb_void2		= new JLabel("      ");
+	JLabel			jlb2			= null;
+	JPanel			jp_up			= new JPanel(new FlowLayout());
+	JPanel			jp_up2			= new JPanel(new GridLayout(1, 7, 3, 3));
+	JPanel			jp_up3			= new JPanel(new BorderLayout());
+	JPanel			jp_down			= new JPanel(new GridLayout(0, 7, 3, 3));
+	JButton			jbtn_in			= new JButton("출근");
+	JButton			jbtn_out		= new JButton("퇴근");
+	JButton			jbtn_left		= new JButton("◀");
+	JButton			jbtn_right		= new JButton("▶");
+	JButton			jbtn_search		= new JButton("검색");
+	JButton			jbtn_attendance	= new JButton("출결");
+	JButton[]		jbtn_nalja		= new JButton[42];
+	String[]		str_yooill		= { "일", "월", "화", "수", "목", "금", "토" };
+	yeeljungEvent	yje				= null;
 
 	public yeeljungView() {
 		yje = new yeeljungEvent(this);
@@ -46,9 +48,12 @@ public class yeeljungView extends JFrame {
 
 		jp_up.add(jbtn_in);
 		jp_up.add(jbtn_out);
+		jp_up.add(jlb_void);
 		jp_up.add(jbtn_left);
 		jp_up.add(jlb);
 		jp_up.add(jbtn_right);
+		jp_up.add(jlb_void2);
+		jp_up.add(jbtn_attendance);
 		jp_up.add(jbtn_search);
 
 		for (int i = 0; i < 42; i++) {
@@ -75,6 +80,8 @@ public class yeeljungView extends JFrame {
 		jbtn_search.addActionListener(yje);
 		jbtn_in.addActionListener(yje);
 		jbtn_out.addActionListener(yje);
+		jbtn_attendance.addActionListener(yje);
+		
 
 		this.setLayout(new BorderLayout());
 		jp_up3.add("North", jp_up);
@@ -88,6 +95,7 @@ public class yeeljungView extends JFrame {
 		nowMonth = month;
 		today = cal.get(Calendar.DATE);
 		RefreshDate();
+		this.setLocation(50, 150);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -97,7 +105,6 @@ public class yeeljungView extends JFrame {
 
 		for (int i = 1; i < jbtn_nalja.length; i++) {
 			jbtn_nalja[i].setVisible(true);
-			jbtn_nalja[i].setEnabled(true);
 		}
 		jlb.setText(String.format("%s년  %s월", year, month));
 

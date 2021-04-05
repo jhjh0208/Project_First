@@ -52,6 +52,17 @@ public class yeeljungEvent implements ActionListener {
 			System.out.println("퇴근시간:");
 		}
 		
+		if (obj == ylv.jbtn_attendance) {
+			System.out.println("이걸 어쩐다요??");
+		}
+//		if (obj == ylv.jbtn_nalja) {
+//			for(int i = 0 ; i <42 ; i++) {
+//				ylv.jbtn_nalja[i];
+//			}
+//			System.out.println("새창이 나온다요??");
+//		}
+		YJattendance yjt= new YJattendance(); 
+	
 //		System.out.println("나석원 바보");
 //		System.out.println("형 화이팅 무야호");
 	}
