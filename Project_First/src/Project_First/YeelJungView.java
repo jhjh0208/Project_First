@@ -13,10 +13,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class yeeljungView extends JFrame {
+public class YeelJungView extends JFrame {
 
 	int				j;
-	Calendar		cal				= Calendar.getInstance();
 	int				year			= 0;
 	int				month			= 0;
 	int				nowMonth		= 0;
@@ -37,15 +36,20 @@ public class yeeljungView extends JFrame {
 	JButton			jbtn_attendance	= new JButton("출결");
 	JButton[]		jbtn_nalja		= new JButton[42];
 	String[]		str_yooill		= { "일", "월", "화", "수", "목", "금", "토" };
-	yeeljungEvent	yje				= null;
+	Calendar		cal				= Calendar.getInstance();
+	YeelJungEvent	yje				= null;
 
-	public yeeljungView() {
-		yje = new yeeljungEvent(this);
+	TimeServer ts = null;
+	TimeClient tc = null;
+	
+	public YeelJungView() {
+		yje = new YeelJungEvent(this);
 		initDisplay();
 	}
 
 	public void initDisplay() {
-
+		ts = new TimeServer();
+		tc = new TimeClient();
 		jp_up.add(jbtn_in);
 		jp_up.add(jbtn_out);
 		jp_up.add(jlb_void);
@@ -88,6 +92,7 @@ public class yeeljungView extends JFrame {
 		jp_up3.add("Center", jp_up2);
 		this.add("North", jp_up3);
 		this.add("Center", jp_down);
+//		this.setTitle(ts.getTimer());
 		this.setTitle("일정관리");
 		this.setSize(550, 400);
 		year = cal.get(Calendar.YEAR);
@@ -118,6 +123,9 @@ public class yeeljungView extends JFrame {
 
 		int	v			= 0;
 
+		System.out.println(end);
+		System.out.println(dayOfWeek);
+		
 		for (int i = 1; i <= end; i++) {
 
 			if (i == 1) {
@@ -143,8 +151,9 @@ public class yeeljungView extends JFrame {
 		for (int i = 0; i < 42 - (v + end); i++) {
 			jbtn_nalja[v + end + i].setVisible(false);
 		}
+		System.out.println(v);
 	}
-
+		
 //		if (month == nowMonth) {
 //
 //			for (int i = 1; i < today; i++) {
@@ -152,9 +161,9 @@ public class yeeljungView extends JFrame {
 //			}//
 //		}
 //	}
-
+	
 	public static void main(String[] args) {
-		new yeeljungView();
-
+		new YeelJungView();
+		
 	}
 }

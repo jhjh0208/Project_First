@@ -18,8 +18,10 @@ public class YJattendance extends JFrame{
 	JTextArea jta_naeyoung = new JTextArea();
 	JPanel jpn_textarea = new JPanel();
 	JPanel jpn_button = new JPanel(new FlowLayout());
+	YeelJungEvent yje = null;
 	
 	public YJattendance () {
+		yje = new YeelJungEvent(this);
 		initDisplay();
 	}
 
