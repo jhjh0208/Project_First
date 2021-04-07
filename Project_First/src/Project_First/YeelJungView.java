@@ -14,7 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class YeelJungView extends JFrame {
-
+	// 확인용 주석~~~
+	//리리리리리리리~~~
 	int				j;
 	int				year			= 0;
 	int				month			= 0;
