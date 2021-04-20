@@ -15,14 +15,14 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class CalView extends JFrame {
-	JLabel j_lable = new JLabel();
+//	JLabel j_lable = new JLabel();
 	JPanel jp_num  = null; // 숫자 창
 	JPanel jp_numbtn  = new JPanel();//숫자 버튼
 	JPanel jp_plusbtn  = new JPanel();//연산 버튼
 	JPanel jp_info   = new JPanel();//기록
 	JTextArea jta_display = new JTextArea();
 	JTextArea jta_fake = new JTextArea();
-	JTextArea jta_info = new JTextArea("계산 내용이 기록됩니다"+"\n");
+	JTextArea jta_info = new JTextArea("여기는 계산 내용이 기록됩니다"+"\n");
 	JScrollPane jsp_display = new JScrollPane(jta_display,JScrollPane.VERTICAL_SCROLLBAR_NEVER,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 	JScrollPane jsp_info = new JScrollPane(jta_info,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 	String[] jbtns_num = {"0","1","2","3","4","5","6","7","8","9"};

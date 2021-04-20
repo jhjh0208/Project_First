@@ -87,7 +87,8 @@ public class CalEvent implements ActionListener{
 						gap = Double.toString(nan);
 						nan_str = Integer.toString(nan_int);
 						System.out.println("나눈값 소수점은 " + gap + " 나눈값 정수는 " + nan_str);
-						sosu = gap.charAt(gap.length()-(gap.length()-nan_str.length())+1);
+//						sosu = gap.charAt(gap.length()-(gap.length()-nan_str.length())+1);
+						sosu = gap.charAt(nan_str.length()+1);
 						System.out.println("소수점은 " + sosu + " 나눈 값은 "+(gap.length()-(gap.length()-nan_str.length())) );
 						if(sosu < '5') {//반올림
 							gap = Integer.toString(fnum/snum);
