@@ -34,9 +34,10 @@ public class MemberShip extends JDialog implements ActionListener {
    JComboBox   	jcb_gender      = new JComboBox(genderList);
    JCheckBox 	checkBox_pw 	= new JCheckBox("비밀번호 보이기");
    JLabel		jlb_avatar		= new JLabel("대표 아바타 설정");
-   JLabel		avatar			= new JLabel(new ImageIcon("src\\Project_First\\lion66.png"));
+   JLabel		avatar			= null;
    JButton		jbtn_avatar		= new JButton("아바타 변경");
-  
+//   JButton		jbtn_avatar		= null;
+   Font			font 			= new Font("궁서체", 1, 14);
  
    JScrollPane	jsp				= null;
    JPanel		jp_south		= new JPanel();
@@ -44,23 +45,31 @@ public class MemberShip extends JDialog implements ActionListener {
    JButton		jbtn_close		= new JButton("닫기");
    JButton		jbtn_equals		= new JButton("중복확인");
    
-   AvatarChoose avch			= null;
+   MemberAvatar mav			= null;
+   MembershipEvent mse = null;
    
    int 			gender			= 0;
 //   ZipCodeSearch zcs = new ZipCodeSearch(this);
 
    // 생성자
    public MemberShip() {
-      initDisplay();
+//      initDisplay();
    }
+//   public MemberShip(MembershipEvent mse) {
+//	   this.mse = mse;
+//   }
    public static void main(String[] args) {      
-       new MemberShip();
+//	   new MemberShip();
+	   MemberShip ms = new MemberShip();
+	   ms.initDisplay();
    }
    
 
    // 화면처리부
    public void initDisplay() {
-      jbtn_equals.addActionListener(this);
+	  avatar = new JLabel(new ImageIcon("src\\images\\lion11.png"));
+
+	  jbtn_equals.addActionListener(this);
       jbtn_ins.addActionListener(this);
       jbtn_close.addActionListener(this);
       jbtn_avatar.addActionListener(this);
@@ -79,14 +88,14 @@ public class MemberShip extends JDialog implements ActionListener {
       jtf_name.setBounds(120, 305, 150, 20);
       jlb_gender.setBounds(20, 330, 100, 20);
       jcb_gender.setBounds(120, 330, 150, 20);
-      jcb_gender.setFont(new Font("궁서체", 1, 14));
-      jlb_id.setFont(new Font("궁서체", 1, 14));
-      jlb_pw.setFont(new Font("궁서체", 1, 14));
-      jlb_nickName.setFont(new Font("궁서체", 1, 14));
-      jlb_name .setFont(new Font("궁서체", 1, 14));
-      jbtn_ins .setFont(new Font("궁서체", 1, 14));
-      jbtn_close .setFont(new Font("궁서체", 1, 14));
-      jbtn_equals .setFont(new Font("궁서체", 1, 14));
+      jcb_gender.	setFont(font);
+      jlb_id.		setFont(font);
+      jlb_pw.		setFont(font);
+      jlb_nickName.	setFont(font);
+      jlb_name .	setFont(font);
+      jbtn_ins .	setFont(font);
+      jbtn_close .	setFont(font);
+      jbtn_equals .	setFont(font);
       
       jp_center.add(avatar);
       jp_center.add(jlb_avatar);
@@ -211,7 +220,8 @@ public class MemberShip extends JDialog implements ActionListener {
          
          
       }else if (obj == jbtn_avatar) {
-    	  avch = new AvatarChoose();
+    	  System.out.println(avatar);
+    	  mav = new MemberAvatar();
     	  
           
       }
